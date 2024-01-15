@@ -25,30 +25,3 @@ CREATE or REPLACE VIEW customer_order_products_obj AS
 
 VIEW CUSTOMER_ORDER_PRODUCTS_OBJ created.
 
-
-
-# Achieving the same w/ a lateral inline view
-"""
-"""
-SELECT
-    bp.brewery_name,
-    bp.product_id as p_id,
-    bp.product_name,
-    top_ys.yr,
-    top_ys.yr_qty
-FROM brewery_products bp
-CROSS APPLY (
-    SELECT
-        ys.yr,
-        ys.yr_qty
-    FROM yearly_sales ys
-    WHERE ys.product_id = bp.product_id
-    ORDER BY ys.yr_qty DESC
-    FETCH FIRST ROW ONLY
-) top_ys
-WHERE bp.brewery_id = 518
-ORDER BY bp.product_id;
-
-"""
-use apply, I am allowed to correlate the inline view w/ the predicate in line 40,  just like using lateral. Behind the scenes, the database does exactly the same as a lateral inline view; it is just a case of which syntax you prefer.
-"""
