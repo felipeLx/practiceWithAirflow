@@ -1,45 +1,37 @@
 # Tree Calculations w/ Recursion
-# Recursive subquery factoring is a powerful tool for traversing hierarchies
-# Multiplication of quantities w/ recursive subquery factoring
-WITH recursive_pr (
-    packaging_id, contains_id, qty_mult, level
-) AS (
-    SELECT
-        pr.packaging_id,
-        pr.contains_id,
-        pr.qty_mult,
-        1 AS level
-    FROM
-        packaging_relations pr
-    WHERE
-        pr.packaging_id NOT IN (
-            SELECT
-                c.contains_id
-            FROM
-                packaging_relations c
-        )
-    UNION ALL
-    SELECT
-        pr.packaging_id,
-        pr.contains_id,
-        rpr.qty * pr.qty_mult as qty,
-        rpr.level + 1 as level
-    FROM
-        recursive_pr rpr
-    JOIN packaging_relations pr ON pr.packaging_id = rpr.contains_id
-)
-    SEARCH DEPTH FIRST BY contains_id SET rpr_order
+#  Alternative method using dynamic evaluation function
+WITH function evaluate_expr (
+    p_expr varchar2
+    ) 
+        return number
+    is
+        l_retval number;
+    begin
+        execute immediate 'select ' || p_expr || ' from dual' into l_retval;
+        return l_retval;
+    end;
 SELECT
-    p.id as p_id,
-    lpad(' ', 2 * (rpr.level - 1)) || p.name as p_name,
+    connect_by_root p.id as p_id,
+    connect by_root p.name as p_name,
     c.id as c_id,
     c.name as c_name,
-    rpr.qty
-FROM recursive_pr rpr
-JOIN packaging p ON p.id = rpr.packaging_id
-JOIN packaging c
-    ON p.id = rpr.contains_id
-ORDER BY rpr.rpr_order;
+    ltrim(sys_connect_by_path(pr.qty, '*'), '*') as qty_expr,
+    evaluate_expr(ltrim(sys_connect_by_path(pr.qty, '*'), '*')) as qty_mult
+FROM packaging_relations pr
+    JOIN packaging p
+        ON p.id = pr.packaging_id
+    JOIN packaging c
+        ON c.id = pr.contains_id
+WHERE
+    connect_by_isleaf = 1
+START WITH pr.packaging_id not in (
+    SELECT c.contains_id
+    FROM packaging_relations c
+)
+connect by pr.packaging_id = prior pr.contains_id
+order siblings by pr.contains_id;
+"""
+
 """
 When it is a recursive w/ instead of just a normal w/, it is mandatory to include 
 the list of column names, as I do in line 2.
