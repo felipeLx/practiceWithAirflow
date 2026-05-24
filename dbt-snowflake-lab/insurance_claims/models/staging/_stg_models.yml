@@ -1,0 +1,64 @@
+version: 2
+
+models:
+  - name: stg_customers
+    description: "Cleaned customer records from raw source"
+    columns:
+      - name: customer_id
+        description: "Primary key"
+        data_tests:
+          - unique
+          - not_null
+      - name: full_name
+        description: "Customer full name (first + last)"
+      - name: state_code
+        description: "US state code"
+        data_tests:
+          - not_null
+      - name: customer_since
+        description: "Date customer first registered"
+
+  - name: stg_policies
+    description: "Cleaned policy records"
+    columns:
+      - name: policy_id
+        data_tests:
+          - unique
+          - not_null
+      - name: customer_id
+        data_tests:
+          - not_null
+          - relationships:
+              to: ref('stg_customers')
+              field: customer_id
+      - name: policy_type
+        description: "Type: auto, home, life, health"
+        data_tests:
+          - accepted_values:
+              values: ['auto', 'home', 'life', 'health']
+      - name: premium_amount
+        description: "Monthly premium in dollars"
+      - name: status
+        data_tests:
+          - accepted_values:
+              values: ['active', 'cancelled', 'expired']
+
+  - name: stg_claims
+    description: "Cleaned claims records"
+    columns:
+      - name: claim_id
+        data_tests:
+          - unique
+          - not_null
+      - name: policy_id
+        data_tests:
+          - not_null
+          - relationships:
+              to: ref('stg_policies')
+              field: policy_id
+      - name: claim_amount
+        description: "Claim value in dollars"
+      - name: claim_status
+        data_tests:
+          - accepted_values:
+              values: ['submitted', 'under_review', 'approved', 'denied', 'paid']

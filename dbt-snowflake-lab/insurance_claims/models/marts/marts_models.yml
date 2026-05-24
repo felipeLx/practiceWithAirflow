@@ -1,0 +1,32 @@
+version: 2
+
+models:
+  - name: fct_claims
+    description: "Fact table - all insurance claims with enriched dimensions"
+    columns:
+      - name: claim_id
+        data_tests:
+          - unique
+          - not_null
+      - name: total_claim_amount
+        description: "Total claim value in USD"
+
+  - name: dim_customers
+    description: "Customer dimension with aggregated metrics"
+    columns:
+      - name: customer_id
+        data_tests:
+          - unique
+          - not_null
+      - name: total_policies
+        description: "Count of policies held"
+      - name: total_claims
+        description: "Count of claims filed"
+
+  - name: dim_policies
+    description: "Policy dimension with current status"
+    columns:
+      - name: policy_id
+        data_tests:
+          - unique
+          - not_null

@@ -1,0 +1,41 @@
+version: 2
+
+sources:
+  - name: raw_insurance
+    description: "Raw insurance data loaded via seeds"
+    database: INSURANCE_DB
+    schema: raw
+    
+    freshness:                    # dbt source freshness check
+      warn_after: {count: 24, period: hour}
+      error_after: {count: 48, period: hour}
+    
+    tables:
+      - name: raw_customers
+        description: "Customer master data"
+        loaded_at_field: loaded_at
+        columns:
+          - name: customer_id
+            description: "Unique customer identifier"
+            data_tests:
+              - unique
+              - not_null
+      
+      - name: raw_policies
+        description: "Insurance policy records"
+        loaded_at_field: loaded_at
+        columns:
+          - name: policy_id
+            data_tests:
+              - unique
+              - not_null
+          - name: customer_id
+            data_tests:
+              - not_null
+              - relationships:
+                  to: source('raw_insurance', 'raw_customers')
+                  field: customer_id
+      
+      - name: raw_claims
+        description: "Insurance claims filed by customers"
+        loaded_at_field: loaded_at

@@ -1,0 +1,11 @@
+customer_id,first_name,last_name,email,state_code,date_of_birth,created_at,loaded_at
+1001,John,Smith,john.smith@email.com,TX,1985-03-15,2020-01-10,2024-01-01
+1002,Maria,Garcia,maria.garcia@email.com,CA,1990-07-22,2020-02-15,2024-01-01
+1003,James,Johnson,james.j@email.com,FL,1978-11-30,2020-03-20,2024-01-01
+1004,Sarah,Williams,sarah.w@email.com,NY,1992-05-08,2020-04-01,2024-01-01
+1005,Robert,Brown,r.brown@email.com,TX,1988-09-12,2020-05-15,2024-01-01
+1006,Jennifer,Davis,j.davis@email.com,CA,1995-01-25,2021-01-10,2024-01-01
+1007,Michael,Miller,m.miller@email.com,FL,1982-06-18,2021-02-20,2024-01-01
+1008,Lisa,Wilson,l.wilson@email.com,NY,1991-12-03,2021-06-01,2024-01-01
+1009,David,Moore,d.moore@email.com,OH,1975-08-27,2022-01-15,2024-01-01
+1010,Amanda,Taylor,a.taylor@email.com,IL,1993-04-14,2022-03-01,2024-01-01
