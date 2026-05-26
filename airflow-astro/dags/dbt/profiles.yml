@@ -1,0 +1,13 @@
+insurance_claims:
+  outputs:
+    dev:
+      account: "QYUCTVI-LP62189"
+      database: 'insurance_db'
+      password: 5F_ZUYRwFP2gUss
+      role: ACCOUNTADMIN
+      schema: RAW
+      threads: 4
+      type: snowflake
+      user: felipealisboa
+      warehouse: COMPUTE_WH
+  target: dev

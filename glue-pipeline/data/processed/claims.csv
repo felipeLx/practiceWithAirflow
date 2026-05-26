@@ -1,0 +1,13 @@
+claim_id,policy_id,claim_date,claim_amount,claim_type,claim_status,description,filed_by,claim_month,claim_year,is_high_value,created_at,loaded_at,processed_at
+C3001,P2001,2021-06-15,5200.0,collision,paid,Rear-end collision on highway,1001,2021-06-01,2021,False,2021-06-15,2024-01-01,2026-05-26 15:41:36.708854
+C3002,P2001,2021-09-20,1800.0,comprehensive,approved,Hail damage to windshield,1001,2021-09-01,2021,False,2021-09-20,2024-01-01,2026-05-26 15:41:36.708854
+C3003,P2002,2021-11-10,15000.0,property,under_review,Water damage from burst pipe,1001,2021-11-01,2021,True,2021-11-10,2024-01-01,2026-05-26 15:41:36.708854
+C3004,P2003,2021-05-22,8500.0,collision,denied,Single vehicle accident,1002,2021-05-01,2021,False,2021-05-22,2024-01-01,2026-05-26 15:41:36.708854
+C3005,P2005,2021-08-30,3200.0,comprehensive,paid,Theft of vehicle parts,1003,2021-08-01,2021,False,2021-08-30,2024-01-01,2026-05-26 15:41:36.708854
+C3006,P2006,2021-12-01,12000.0,medical,paid,Emergency surgery coverage,1004,2021-12-01,2021,True,2021-12-01,2024-01-01,2026-05-26 15:41:36.708854
+C3007,P2007,2022-03-18,4100.0,collision,submitted,Intersection collision,1005,2022-03-01,2022,False,2022-03-18,2024-01-01,2026-05-26 15:41:36.708854
+C3008,P2008,2022-05-25,22000.0,property,paid,Fire damage to kitchen,1006,2022-05-01,2022,True,2022-05-25,2024-01-01,2026-05-26 15:41:36.708854
+C3009,P2009,2022-04-10,6700.0,collision,denied,Parking lot incident,1007,2022-04-01,2022,False,2022-04-10,2024-01-01,2026-05-26 15:41:36.708854
+C3010,P2010,2022-08-15,2500.0,medical,approved,Annual health checkup,1008,2022-08-01,2022,False,2022-08-15,2024-01-01,2026-05-26 15:41:36.708854
+C3011,P2011,2022-09-01,9800.0,medical,under_review,Physical therapy sessions,1009,2022-09-01,2022,False,2022-09-01,2024-01-01,2026-05-26 15:41:36.708854
+C3012,P2007,2022-11-20,3800.0,comprehensive,submitted,Vandalism damage,1005,2022-11-01,2022,False,2022-11-20,2024-01-01,2026-05-26 15:41:36.708854

@@ -1,0 +1,19 @@
+version: 2
+
+macros:
+  - name: cents_to_dollars
+    description: "Converts cent values to dollars with 2 decimal places"
+    arguments:
+      - name: column_name
+        type: string
+        description: "Column containing value in cents"
+
+  - name: generate_schema_name
+    description: "Override default schema naming. Uses custom_schema directly instead of target_schema_custom_schema"
+    arguments:
+      - name: custom_schema_name
+        type: string
+        description: "Schema name from +schema config"
+      - name: node
+        type: object
+        description: "dbt node object"

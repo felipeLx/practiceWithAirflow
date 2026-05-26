@@ -1,0 +1,10 @@
+.pytest_cache/
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+/utils/__pycache__/
+/dags/__pycache__/
+/jobs/__pycache__/
+/tests/__pycache__/
