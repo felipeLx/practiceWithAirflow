@@ -147,10 +147,9 @@ QUARANTINE_BAD_CLAIMS = """
 """
 
 REMOVE_QUARANTINED_FROM_STAGING = """
-    DELETE FROM RAW.raw_claims 
+    DELETE FROM RAW.raw_claims
     WHERE claim_id IN (SELECT claim_id FROM RAW.quarantine_claims);
 """
-
 
 # ============================================================
 # DAG DEFINITION
@@ -198,6 +197,12 @@ with DAG(
         conn_id=SNOWFLAKE_CONN_ID,
     )
 
+    remove_quarantined = SQLExecuteQueryOperator(
+        task_id='remove_quarantined',
+        sql=REMOVE_QUARANTINED_FROM_STAGING,
+        conn_id=SNOWFLAKE_CONN_ID,
+    )
+
     # ---- DBT PIPELINE ----
 
     dbt_seed = BashOperator(
@@ -238,7 +243,7 @@ with DAG(
     check_freshness >> [source_row_count, skip_no_new_data]
 
     # If fresh: validate → quarantine → dbt → quality check
-    source_row_count >> quarantine_bad_records >> dbt_seed >> dbt_snapshot >> dbt_run >> dbt_test >> validate_quality >> pipeline_complete
+    source_row_count >> quarantine_bad_records >> remove_quarantined  >> dbt_seed >> dbt_snapshot >> dbt_run >> dbt_test >> validate_quality >> pipeline_complete
 
     # If not fresh: skip
     skip_no_new_data >> pipeline_complete

@@ -217,7 +217,8 @@ def quarantine_alert(**context):
     reasons = context["ti"].xcom_pull(
         task_ids="start_glue_job", key="quarantine_reasons"
     )
-    
+    logger.error("ALERT: Quality gate failed! Reasons=%s", reasons)
+
     # In production:
     # import boto3
     # sns = boto3.client('sns')
